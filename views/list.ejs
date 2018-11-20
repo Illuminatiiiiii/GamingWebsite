@@ -14,7 +14,7 @@
                 <p class="card-text">Game created by
                     <%= gamesList[i].creator %>
                 </p>
-                <a href="#" class="btn btn-primary">Play Game</a>
+                <a href="/game/<%= gamesList[i].title %>/<%= gamesList[i].creator %>" class="btn btn-primary">Play Game</a>
             </div>
         </div>
     </div>
