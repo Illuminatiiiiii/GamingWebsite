@@ -20,7 +20,7 @@ app.get("/game/:gameTitle/:gameCreator", function(req, res){
     });
 });
 
-app.get("/gamelist", function(req, res){ 
+app.get("/list", function(req, res){ 
 
     const games = [
         {title: "Fortnite", creator: "Epic Games"},
@@ -28,7 +28,7 @@ app.get("/gamelist", function(req, res){
         {title: "Battlefield 1", creator: "EA"}
     ]
 
-    res.render("gamelist", {
+    res.render("list", {
         gamesList: games
     });
 });

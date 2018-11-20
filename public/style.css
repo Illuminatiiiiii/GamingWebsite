@@ -1,8 +1,4 @@
-body{
-    background-color: black;
-    color: green;
-    font-size: 20px;
-}
-h1{
-    color: pink;
+/* Empty for now, this will hold our custom styles that override the boostrap styles */
+body { 
+    padding-top: 65px; 
 }

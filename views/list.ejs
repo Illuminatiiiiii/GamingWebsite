@@ -1,0 +1,27 @@
+<% include partials/header %>
+
+<h1>This is all of the games we have:</h1>
+<div class="row">
+    <% for(var i = 0;i < gamesList.length; i++){ %>
+
+    <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="/images/imageempty.svg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <%= gamesList[i].title %>
+                </h5>
+                <p class="card-text">Game created by
+                    <%= gamesList[i].creator %>
+                </p>
+                <a href="#" class="btn btn-primary">Play Game</a>
+            </div>
+        </div>
+    </div>
+    <% } %>
+</div>
+
+
+
+
+<% include partials/footer %>
