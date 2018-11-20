@@ -1,0 +1,97 @@
+/*
+Owl carousel sliders style
+*/
+.carousel-outer{
+    position:relative;
+    max-width:500px;
+    margin:0 auto;
+    overflow: hidden;
+    box-shadow:0px 20px 40px rgba(#000,.1);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    z-index:13;
+    .owl-theme .owl-dots{
+        position: absolute;
+        z-index:99;
+        width:100%;
+        bottom:0;
+    }
+    .item  img{
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+       max-width:500px;
+        height: auto;
+    }
+}
+.owl-carousel.owl-theme{
+     .owl-nav{
+        position: absolute;
+        top:50%;
+        left:0;
+        width: 100%;
+        .owl-next{
+            position: absolute;
+            right: 0;
+        }
+        .owl-prev{
+            position: absolute;
+            left: 0;
+        }
+    }
+    .owl-nav [class*=owl-]{
+        background-color: transparent;
+        padding: 0px;
+        margin: 0px;
+        font-size: 1.8rem;
+        line-height: 1.8rem;
+        color: #999;
+        height: auto;
+        width: auto;
+    }
+}
+.owl-theme .owl-dots .owl-dot{
+    span{
+        width: 6px;
+        height: 6px;
+        padding: 0px;
+        border-radius: 50%;
+        background-color: #999;
+        opacity:.7;
+        margin-bottom:0px;
+        &:hover{
+            background-color: $primary-color;
+        }
+    }
+    &.active{
+        span{
+            background-color: $primary-color;
+            opacity:1;
+        }
+    }
+}
+.owl-carousel.owl-theme.carousel-review{
+    p{
+        font-size: 22px;
+        margin-bottom: 30px;
+        line-height: 1.8;
+    }
+    .img-fluid{
+        width: 80px;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 15px;
+    }
+    
+}
+.bg-primary,.bg-primary-dark,.bg-dark{
+    .owl-theme .owl-nav [class*=owl-]{
+        color: #fff;
+        opacity: 0.8;
+        transition: all .3s;
+        background-color: transparent;
+        -webkit-transition: all .3s;
+        &:hover{
+            opacity:1;
+        }
+    }
+}

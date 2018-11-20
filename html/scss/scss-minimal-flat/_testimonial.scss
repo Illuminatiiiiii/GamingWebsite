@@ -1,0 +1,24 @@
+/*
+Testimonial
+*/
+.testimonail-card{
+   padding:30px 15px;
+  border:2px solid rgba($primary-color,.05);
+  border-radius: 5px;
+  .img-fluid{
+      width: 60px;
+      margin:20px auto;
+      margin-top:0px;
+  }
+  em{
+      font-size:12px;
+  }
+  h5{
+      margin-bottom:0px;
+  }
+  em{
+      display: block;
+      opacity:.6;
+      margin-top: -3px;
+  }
+}

@@ -1,0 +1,11 @@
+<% include partials/header %>
+
+        <h2>Game Title: <%= title %></h2>
+        <h3>Game Creator: <%= creator %></h3>
+        <% if(title == "Fortnite"){ %> 
+            <p>Description: Fortnite Battle Royale is the FREE 100-player PvP mode in Fortnite. One giant map. A battle bus. Fortnite building skills and destructible environments combined ...</p>
+        <% }else{ %>
+            <p>There is no description for this game. Try Fortnite.</p>
+        <% } %>
+
+<% include partials/footer %>

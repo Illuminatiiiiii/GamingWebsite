@@ -1,0 +1,112 @@
+/*
+Header style
+*/
+.navbar {
+    .container,.container-fluid{
+        position: relative;
+    }
+}
+.navbar .navbar-nav .nav-link{
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 1rem;
+    font-family: $base-font;
+    border-top: 2px solid transparent;
+    cursor: pointer;
+}
+.navbar-light.navbar .navbar-nav .nav-link{
+    color: rgba($dark-color,.6);
+    &:hover,&:focus,&:active,&.active{
+        color: $primary-color;
+        border-top-color: $primary-color;
+    }
+}
+
+@media (min-width:992px){
+    .navbar.navbar-sticky.navbar-transparent-light.bg-white{
+        position: absolute;
+        left:0;
+        top:0;
+        width:100%;
+        z-index: 999;
+        background-color: transparent!important;
+        .navbar-brand{
+            >img{
+                position: absolute;
+                top:30px;
+                &.logo-scroll{
+                    opacity: 0;
+                }
+            }
+        }
+        .navbar-nav .nav-link{
+            color: rgba(#fff,.83);
+            &:hover,&.active,&:active,&:focus{
+                color: #fff;
+            }
+        }
+    }
+    .navbar-expand-lg.navbar {
+        padding-top: 0;
+        padding-bottom: 0;
+        z-index:999;
+        .navbar-nav {
+            .nav-item{
+                padding-left: 1rem;
+                padding-right:1rem;
+                &:last-child{
+                    padding-left: 0px;
+                    padding-right: 0px;
+                }
+            }
+            .nav-link{
+                padding-top: 1.3rem;
+                padding-bottom: 1.3rem;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+    .navbar-nav{
+        .nav-item .nav-link{
+            &.btn{
+                padding-top:12px!important;;
+                padding-bottom: 12px!important;;
+                padding-left: 30px!important;;
+                padding-right: 30px!important;;
+                border:0px!important;
+                box-shadow: 0px 2px 5px rgba(#000,.1);
+                position: relative;
+                top: 13px;
+                margin-left: 1rem;
+            }
+        }
+    }
+    .navbar.navbar-transparent-light.bg-white.navbar-sticky.fixed-top{
+        position: fixed;
+        left:0;
+        top:0;
+        width:100%;
+        z-index: 999;
+        animation: fadeInDown .4s;
+        -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.06);
+        box-shadow: 0 0 15px rgba(0,0,0,0.06);
+        background-color: rgba(#fff,.98)!important;
+        .navbar-brand{
+            >img{
+                &.logo-scroll{
+                    opacity: 1;
+                }
+                &.logo-trans{
+                    opacity: 0;
+                }
+            }
+        }
+        .navbar-nav .nav-link{
+            color: rgba(#000,.73);
+            &:hover,&.active,&:active,&:focus{
+                color:$primary-color;
+            }
+        }
+    }
+}

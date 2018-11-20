@@ -1,0 +1,43 @@
+/*
+Split image section
+*/
+/**half image section**/
+@media(min-width:992px){
+    .half-image-content{
+    position:relative;
+    overflow:hidden;
+    .content-img{
+        position:absolute;
+        top:0;
+        width:48%;
+        height:100%;
+        &.pos-left{
+            left:0;
+        }
+         &.pos-right{
+            right:0;
+        }
+    }
+}
+.hidden-lg-up{
+    display: none;
+}
+}
+
+.cd-row{
+    display: inline-block;
+    margin-bottom:30px;
+    >div{
+        display: inline-block;
+        padding:10px 15px;
+        margin:5px;
+        border-radius:3px;
+        p{
+            color:#999;
+            margin:0px;
+        }
+        h3{
+            margin-bottom: 0px;
+        }
+    }
+}
