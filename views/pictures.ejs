@@ -1,0 +1,15 @@
+<% include partials/header %>
+
+<h1>Here is a list of all of the pictures on page: <%= pageNumber %></h1>
+<div class="row">
+<% for(var i = 0;i < picData.length;i++){ %>
+<div style="background-color: <%= picData[i].color %>; width: 290px; border: 2px solid red">
+    <img src="<%= picData[i].urls.thumb %>" style="width:286px; height: 180px;" /> 
+    <p>By: <%= picData[i].user.name %> on <%= picData[i].created_at %></p>
+    <p>Dimensions: <%= picData[i].width %>X<%= picData[i].height %></p>
+    <p>Likes: <%= picData[i].likes %></p>
+</div>
+<% } %>
+</div>
+
+<% include partials/footer %>
