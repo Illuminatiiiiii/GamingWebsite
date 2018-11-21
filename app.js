@@ -42,36 +42,28 @@ app.get("/list", function (req, res) {
     });
 });
 
-app.get("/pics/:page", function (req, res) {
-    var pageNumber = req.params.page;
-    request("https://api.unsplash.com/photos/?client_id=a23535d66eec2d81f1d9aea445095e620bf47ec2df2b80266d2b7b92adf2d844&page=" + pageNumber, function (error, response, body) {
+app.get("/pics", function (req, res) {
+    var searchTerm = req.query.searchterm;
+    var page = req.query.page;
+    console.log(searchTerm);
+    request("https://api.unsplash.com/search/photos?client_id=a23535d66eec2d81f1d9aea445095e620bf47ec2df2b80266d2b7b92adf2d844&page=" + page + "&query=" + searchTerm, function (error, response, body) {
         if (error) {
             console.log(error);
         } else {
             var data = JSON.parse(body);
             res.render("pictures", {
                 picData: data,
-                pageNumber: pageNumber
+                pageNumber: page
             });
         }
     });
 });
 
-//Route if they dont provide a page number
-app.get("/pics", function (req, res) {
-    var pageNumber = req.params.page;
-    request("https://api.unsplash.com/photos/?client_id=a23535d66eec2d81f1d9aea445095e620bf47ec2df2b80266d2b7b92adf2d844", function (error, response, body) {
-        if (error) {
-            console.log(error);
-        } else {
-            var data = JSON.parse(body);
-            res.render("pictures", {
-                picData: data,
-                pageNumber: 1
-            });
-        }
-    });
+//Route to page so user can search for a picture
+app.get("/search", function(req, res){
+    res.render("search");
 });
+
 
 app.listen("3000", function () {
     console.log("Gaming Website has started up! Made by Illuminati Productions.");

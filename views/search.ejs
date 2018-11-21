@@ -1,0 +1,14 @@
+<% include partials/header %>
+
+<h1>Enter a Keyword to Search for Pictures</h1>
+<form action="/pics" method="GET">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Example: sun" name="searchterm">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" value="1" name="page">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<% include partials/footer %>
