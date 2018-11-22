@@ -2,10 +2,15 @@
  
         <h2>Game Title: <%= title %></h2>
         <h3>Game Creator: <%= creator %></h3>
-        <% if(title == "Fortnite"){ %> 
-            <p>Description: Fortnite Battle Royale is the FREE 100-player PvP mode in Fortnite. One giant map. A battle bus. Fortnite building skills and destructible environments combined ...</p>
-        <% }else{ %>
-            <p>There is no description for this game. Try Fortnite.</p>
-        <% } %>
- 
+        
+        <!-- Game will go here -->
+        <div id="game">
+            <p>You can't see the game because you are a loser.(get flashplayer)</p>
+        </div>
+
+<script type="text/javascript" src="/swf/src/swfobject.js"></script>
+<script>
+var el = document.getElementById("game");
+swfobject.embedSWF("/games/<%= fileName %>", el, <%= width %>, <%= height %>, 10);
+</script>
 <% include partials/footer %>
