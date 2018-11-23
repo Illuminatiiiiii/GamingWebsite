@@ -1,0 +1,30 @@
+<% include partials/header %>
+ 
+<h1>Add a game here!</h1>
+
+<form action="/addgame" method="POST">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" placeholder="Run 3" name="title">
+  </div>
+  <div class="form-group">
+    <label>Creator</label>
+    <input type="text" class="form-control" placeholder="light_bringer777" name="creator">
+  </div>
+  <div class="form-group">
+    <label>Size</label>
+    <input type="text" class="form-control" placeholder="width" name="width">
+    <input type="text" class="form-control" placeholder="height" name="height">
+  </div>
+  <div class="form-group">
+    <label>File Name</label>
+    <input type="text" class="form-control" placeholder="bigbooty.swf" name="fileName">
+  </div>
+  <div class="form-group">
+    <label>Thumbnail File Name</label>
+    <input type="text" class="form-control" placeholder="thumbnail.jpg" name="thumbnailFile">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<% include partials/footer %>
