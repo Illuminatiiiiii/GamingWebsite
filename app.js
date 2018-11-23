@@ -20,42 +20,6 @@ var gameSchema = new mongoose.Schema({
 });
 var Game = mongoose.model("Game", gameSchema);
 
-//Our Obselite Database(Make sure you add this data to the new database)
-// const gamesData = [
-//     {
-//         title: "American Racing", 
-//         creator: "turboNuke",
-//         width: 640,
-//         height: 480,
-//         fileName: "americanracing.swf",
-//         thumbnailFile: "americanracingpicture.jpg"
-//     },
-//     {
-//         title: "Generic Defense Game", 
-//         creator: "PyschoGoldfish",
-//         width: 640,
-//         height: 480,
-//         fileName: "genericdefense.swf",
-//         thumbnailFile: "GenericDefenseGame.png"
-//     },
-//     {
-//         title: "Learn to Fly 2", 
-//         creator: "light_bringer777",
-//         width: 640,
-//         height: 480,
-//         fileName: "embeddable_115608.swf",
-//         thumbnailFile: "ltf2.jpg"
-//     },
-//     {
-//         title: "Wonderputt", 
-//         creator: "dampgnat",
-//         width: 750,
-//         height: 650,
-//         fileName: "wonderputt.swf",
-//         thumbnailFile: "pop-wonderputt.jpg"
-//     }
-// ]
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
@@ -65,15 +29,35 @@ app.set("view engine", "ejs");
 app.get("/", function(req, res){
     res.render("homepage"); 
 });
- 
-app.get("/game/:title/:creator/:width/:height/:fileName/:thumbnailFile", function(req, res){
-    res.render("game", {
-        title: req.params.title,
-        creator: req.params.creator,
-        width: req.params.width,
-        height: req.params.height,
-        fileName: req.params.fileName,
-        thumbnailFile: req.params.thumbnailFile
+
+//This route is currently too complicated. Look at all of the parameters. Booboo. Lets make it better.
+// app.get("/game/:title/:creator/:width/:height/:fileName/:thumbnailFile", function(req, res){
+//     res.render("game", {
+//         title: req.params.title,
+//         creator: req.params.creator,
+//         width: req.params.width,
+//         height: req.params.height,
+//         fileName: req.params.fileName,
+//         thumbnailFile: req.params.thumbnailFile
+//     });
+// });
+
+app.get("/game/:id", function(req, res){
+    var id = req.params.id;
+    //Method given by mongoose that lets u find the document by its id
+    Game.findById(id, function(error, foundGame){
+        if(error){
+            res.send("Error locating game. ID might not exist anymore.");
+        }else{
+            res.render("game", {
+                title: foundGame.title,
+                creator: foundGame.creator,
+                width: foundGame.width,
+                height: foundGame.height,
+                fileName: foundGame.fileName,
+                thumbnailFile: foundGame.thumbnailFile
+            });
+        }
     });
 });
  

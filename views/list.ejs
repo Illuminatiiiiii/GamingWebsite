@@ -10,7 +10,7 @@
                 <div class="card-body">
                 <h5 class="card-title"><%= gamesData[i].title %></h5>
                 <p class="card-text">Game created by <%= gamesData[i].creator %></p>
-                <a href="/game/<%= gamesData[i].title %>/<%= gamesData[i].creator %>/<%= gamesData[i].width %>/<%= gamesData[i].height %>/<%= gamesData[i].fileName %>/<%= gamesData[i].thumbnailFile %>" class="btn btn-primary">Play Game</a>
+                <a href="/game/<%= gamesData[i]._id %>" class="btn btn-primary">Play Game</a>
                 </div>
             </div>
         </div>
