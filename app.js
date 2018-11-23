@@ -9,7 +9,7 @@ mongoose.connect("mongodb://kody:work123@ds145752.mlab.com:45752/gaming_website_
     useNewUrlParser: true
 });
 
-//Our template for our data when we store it
+//Game data template & model
 var gameSchema = new mongoose.Schema({
     title: String,
     creator: String,
@@ -18,99 +18,48 @@ var gameSchema = new mongoose.Schema({
     fileName: String,
     thumbnailFile: String
 });
-
-//Making that template into a model we can use to add, delete, and find out data. This model will be made into the Games collection when we start adding data.
 var Game = mongoose.model("Game", gameSchema);
 
-//Creating a new piece of data. (a new game object)
-// var testgame = new Game({
-//     title: "Booty Master",
-//     creator: "Jesus",
-//     width: 480,
-//     height: 680,
-//     fileName: "Yeet.swf",
-//     thumbnailFile: "imapicture.jpg"
-// });
-
-// //Adding that data to our database
-// testgame.save(function(error, data){
-//     if(error){
-//         console.log("There was an error saving the data");
-//     }else{
-//         console.log("Data saved to datbase. Here is the data that was saved: ");
-//         console.log(data);
+//Our Obselite Database(Make sure you add this data to the new database)
+// const gamesData = [
+//     {
+//         title: "American Racing", 
+//         creator: "turboNuke",
+//         width: 640,
+//         height: 480,
+//         fileName: "americanracing.swf",
+//         thumbnailFile: "americanracingpicture.jpg"
+//     },
+//     {
+//         title: "Generic Defense Game", 
+//         creator: "PyschoGoldfish",
+//         width: 640,
+//         height: 480,
+//         fileName: "genericdefense.swf",
+//         thumbnailFile: "GenericDefenseGame.png"
+//     },
+//     {
+//         title: "Learn to Fly 2", 
+//         creator: "light_bringer777",
+//         width: 640,
+//         height: 480,
+//         fileName: "embeddable_115608.swf",
+//         thumbnailFile: "ltf2.jpg"
+//     },
+//     {
+//         title: "Wonderputt", 
+//         creator: "dampgnat",
+//         width: 750,
+//         height: 650,
+//         fileName: "wonderputt.swf",
+//         thumbnailFile: "pop-wonderputt.jpg"
 //     }
-// });
-
-//Easier way to add to the database
-Game.create({
-    title: "Booty Master",
-    creator: "Jesus",
-    width: 480,
-    height: 680,
-    fileName: "Yeet.swf",
-    thumbnailFile: "imapicture.jpg"
-}, function(error, data){
-    if(error){
-        console.log("Problem adding data to collection");
-    }else{
-        console.log("Data added: ");
-        console.log(data);
-    }
-});
-
-//Listing all of the Games in the collection
-Game.find({}, function(error, data){
-    if(error){
-        console.log("Problem finding data");
-    }else{
-        console.log("Here is all of the data in the Games collection: ");
-        console.log(data);
-    }
-})
-
-//Our ghetto database
-const gamesData = [
-    {
-        title: "American Racing", 
-        creator: "turboNuke",
-        width: 640,
-        height: 480,
-        fileName: "americanracing.swf",
-        thumbnailFile: "americanracingpicture.jpg"
-    },
-    {
-        title: "Generic Defense Game", 
-        creator: "PyschoGoldfish",
-        width: 640,
-        height: 480,
-        fileName: "genericdefense.swf",
-        thumbnailFile: "GenericDefenseGame.png"
-    },
-    {
-        title: "Learn to Fly 2", 
-        creator: "light_bringer777",
-        width: 640,
-        height: 480,
-        fileName: "embeddable_115608.swf",
-        thumbnailFile: "ltf2.jpg"
-    },
-    {
-        title: "Wonderputt", 
-        creator: "dampgnat",
-        width: 750,
-        height: 650,
-        fileName: "wonderputt.swf",
-        thumbnailFile: "pop-wonderputt.jpg"
-    }
-]
+// ]
 
 app.use(bodyParser.urlencoded({ extended: true }));
- 
-//Sets the public folder as the external file folder
+
 app.use(express.static("public"));
  
-//Officially sets the view engine as ejs, therefore setting the default file type for readering to .ejs
 app.set("view engine", "ejs");
  
 app.get("/", function(req, res){
@@ -129,21 +78,38 @@ app.get("/game/:title/:creator/:width/:height/:fileName/:thumbnailFile", functio
 });
  
 app.get("/list", function(req, res){ 
- 
-    res.render("list", {
-        gamesData: gamesData
+    Game.find({}, function(error, data){ //Getting the documents from the collection, and returning it into the variable data, which we send over while rendering the list page.
+        if(error){
+            console.log("Problem finding data");
+        }else{
+            res.render("list", {
+                gamesData: data
+            });
+        }
     });
 });
 
-//GET Method for /addgame route
 app.get("/addgame", function(req, res){
    res.render("addgame"); 
 });
 
-//POST Method for /addgame route
 app.post("/addgame", function(req, res){
     var data = req.body;
-    gamesData.push(data);
+    Game.create({ //Still takes data from the post request from the form, but uses that data to create a new Game document that will be added to the Games collection.
+        title: data.title,
+        creator: data.creator,
+        width: data.width,
+        height: data.height,
+        fileName: data.fileName,
+        thumbnailFile: data.thumbnailFile
+    }, function(error, data){
+        if(error){
+            console.log("Problem adding game data to collection");
+        }else{
+            console.log("Game added to the database!: ");
+            console.log(data);
+        }
+    });
     res.redirect("/list");
 });
 
