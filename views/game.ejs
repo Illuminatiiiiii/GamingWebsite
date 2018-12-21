@@ -1,17 +1,18 @@
 <% include partials/header %>
- 
-        <h2>Game Title: <%= title %></h2>
-        <h3>Game Creator: <%= creator %></h3>
-        
-        <!-- Game will go here -->
-        <div id="game">
-            <h1>Alternative content</h1>
-            <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
-        </div>
 
-<script type="text/javascript" src="/swf/src/swfobject.js"></script>
-<script>
-var el = document.getElementById("game");
-swfobject.embedSWF("/games/<%= fileName %>", el, <%= width %>, <%= height %>, 9, "/swf/expressInstall.swf");
+<h1>Game: <%= title %></h1>
+<h2>Created by: <%= creator %></h2>
+
+<div id="game">
+			<h1>Alternative content</h1>
+			<p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+</div>
+
+
+
+
+<script type="text/javascript" src="/swf/swfobject.js"></script>
+<script type="text/javascript">
+swfobject.embedSWF("/games/<%= fileName %>", "game", "<%= width %>", "<%= height %>", "9.0.0", "/swf/expressInstall.swf");
 </script>
 <% include partials/footer %>

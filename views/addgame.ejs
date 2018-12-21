@@ -1,8 +1,8 @@
 <% include partials/header %>
- 
-<h1>Add a game here!</h1>
 
-<form action="/addgame" method="POST">
+<h1>Add a game here!!!</h1>
+
+<form action="/addgame" method="POST" enctype="multipart/form-data">
   <div class="form-group">
     <label>Name</label>
     <input type="text" class="form-control" placeholder="Run 3" name="title">
@@ -13,18 +13,43 @@
   </div>
   <div class="form-group">
     <label>Size</label>
-    <input type="text" class="form-control" placeholder="width" name="width">
-    <input type="text" class="form-control" placeholder="height" name="height">
+    <input type="text" class="form-control" placeholder="480" name="width">
+    <input type="text" class="form-control" placeholder="680" name="height">
   </div>
+  <!--
   <div class="form-group">
     <label>File Name</label>
-    <input type="text" class="form-control" placeholder="bigbooty.swf" name="fileName">
+    <input type="text" class="form-control" placeholder="booger.swf" name="fileName">
   </div>
   <div class="form-group">
-    <label>Thumbnail File Name</label>
-    <input type="text" class="form-control" placeholder="thumbnail.jpg" name="thumbnailFile">
+    <label>Thumbnail Name</label>
+    <input type="text" class="form-control" placeholder="thumbnail.png" name="thumbnailFile">
   </div>
+  -->
+  <h3>Upload your files</h3>
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+  </div>
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="gameInput" aria-describedby="inputGroupFileAddon01" name="gamefile">
+    <label class="custom-file-label" for="gameInput">Game file(.swf)</label>
+  </div>
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+  </div>
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" id="imageInput" aria-describedby="inputGroupFileAddon01" name="imagefile">
+    <label class="custom-file-label" for="imageInput">Image file</label>
+  </div>
+  </div>
+  
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+
 
 <% include partials/footer %>

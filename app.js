@@ -1,15 +1,20 @@
 const express = require("express");
 const app = express();
-const request = require("request");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const fileUpload = require('express-fileupload');
 
-//Connecting to the mongodb database(we use mlab)
-mongoose.connect("mongodb://kody:work123@ds145752.mlab.com:45752/gaming_website_database", {
+
+mongoose.connect("mongodb://booty:booty123@ds023078.mlab.com:23078/youtube", {
     useNewUrlParser: true
+}, function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log("Connected to the database");
+    }
 });
 
-//Game data template & model
 var gameSchema = new mongoose.Schema({
     title: String,
     creator: String,
@@ -18,85 +23,130 @@ var gameSchema = new mongoose.Schema({
     fileName: String,
     thumbnailFile: String
 });
+
 var Game = mongoose.model("Game", gameSchema);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-
+// const games = [{
+//     title: "Learn to Fly 2",
+//     creator: "light_bringer777",
+//     width: 640,
+//     height: 480,
+//     fileName: "learntofly2.swf",
+//     thumbnailFile: "Learn_To_Fly_2.jpg"
+// },
+// {
+//     title: "Run 3",
+//     creator: "player_03",
+//     width: 800,
+//     height: 600,
+//     fileName: "run3.swf",
+//     thumbnailFile: "run3.jpg"
+// },
+// {
+//     title: "Continuity",
+//     creator: "glimajr",
+//     width: 640,
+//     height: 480,
+//     fileName: "continuity.swf",
+//     thumbnailFile: "booty.png"
+// }
+// ]
+ 
+//Sets the public folder as the external file folder
 app.use(express.static("public"));
+
+app.use(bodyParser.urlencoded({extended: true}));
  
+//Officially sets the view engine as ejs, therefore setting the default file type for readering to .ejs
 app.set("view engine", "ejs");
+
+app.use(fileUpload());
  
-app.get("/", function(req, res){
-    res.render("homepage"); 
+app.get("/", function (req, res) {
+    res.render("homepage");
 });
 
-//This route is currently too complicated. Look at all of the parameters. Booboo. Lets make it better.
-// app.get("/game/:title/:creator/:width/:height/:fileName/:thumbnailFile", function(req, res){
-//     res.render("game", {
-//         title: req.params.title,
-//         creator: req.params.creator,
-//         width: req.params.width,
-//         height: req.params.height,
-//         fileName: req.params.fileName,
-//         thumbnailFile: req.params.thumbnailFile
-//     });
-// });
-
-app.get("/game/:id", function(req, res){
+app.get("/game/:id", function (req, res) {
     var id = req.params.id;
-    //Method given by mongoose that lets u find the document by its id
+
     Game.findById(id, function(error, foundGame){
         if(error){
-            res.send("Error locating game. ID might not exist anymore.");
+            console.log("Couldn't find game with that id:");
         }else{
             res.render("game", {
                 title: foundGame.title,
                 creator: foundGame.creator,
                 width: foundGame.width,
                 height: foundGame.height,
-                fileName: foundGame.fileName,
-                thumbnailFile: foundGame.thumbnailFile
+                fileName: foundGame.fileName
             });
         }
     });
 });
  
-app.get("/list", function(req, res){ 
-    Game.find({}, function(error, data){ //Getting the documents from the collection, and returning it into the variable data, which we send over while rendering the list page.
+app.get("/list", function (req, res) {
+ 
+    Game.find({}, function(error, games){
         if(error){
-            console.log("Problem finding data");
+            console.log("There was a problem retrieving all of the games from the database.");
+            console.log(error);
         }else{
             res.render("list", {
-                gamesData: data
+                gamesList: games
             });
         }
     });
+
 });
 
 app.get("/addgame", function(req, res){
-   res.render("addgame"); 
+    res.render("addgame");
 });
 
 app.post("/addgame", function(req, res){
     var data = req.body;
-    Game.create({ //Still takes data from the post request from the form, but uses that data to create a new Game document that will be added to the Games collection.
+
+    //a variable representation of the files
+    var gameFile = req.files.gamefile;
+    var imageFile = req.files.imagefile;
+
+    //Using the files to call upon the method to move that file to a folder
+    gameFile.mv("public/games/" + gameFile.name, function(error){
+        if(error){
+            console.log("Couldn't upload the game file");
+            console.log(error);
+        }else{
+            console.log("Game file succesfully uploaded.");
+        }
+    });
+    imageFile.mv("public/games/thumbnails/" + imageFile.name, function(error){
+        if(error){
+            console.log("Couldn't upload the image file");
+            console.log(error);
+        }else{
+            console.log("Image file succesfully uploaded.");
+        }
+    });
+    
+    Game.create({
         title: data.title,
         creator: data.creator,
         width: data.width,
         height: data.height,
-        fileName: data.fileName,
-        thumbnailFile: data.thumbnailFile
+        fileName: gameFile.name,
+        thumbnailFile: imageFile.name
     }, function(error, data){
         if(error){
-            console.log("Problem adding game data to collection");
+            console.log("There was a problem adding this game to the database");
         }else{
-            console.log("Game added to the database!: ");
+            console.log("Game added to database");
             console.log(data);
         }
+
     });
     res.redirect("/list");
 });
-
-app.listen("3000", function(){
+ 
+app.listen("3000", function () {
     console.log("Gaming Website has started up! Made by Illuminati Productions.");
 });
